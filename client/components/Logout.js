@@ -1,20 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { logoutUser } from '../actions/logout'
+import { logout } from '../actions/logout'
 
 const Logout = (props) => {
   return (
-    <button onClick={props.logoutUser}>
+    <a href='#' onClick={props.logoutUser}>
       Logout
-    </button>
+    </a>
   )
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logoutUser: () => {
-      dispatch(logoutUser())
+      dispatch(logout())
     }
   }
 }
