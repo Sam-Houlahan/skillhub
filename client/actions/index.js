@@ -152,6 +152,7 @@ export function addProfileSkillsOffered (skills) {
 }
 
 export function addProfileSkillsWanted (skills) {
+  console.log(skills)
   return dispatch => {
     dispatch(waitingIndicator())
     return request('post', '/profile/skills-learn', skills)
