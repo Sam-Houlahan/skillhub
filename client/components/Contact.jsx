@@ -9,7 +9,6 @@ import {sendMessage} from '../actions/messages'
 import ErrorMessage from './ErrorMessage'
 
 class Contact extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -23,7 +22,7 @@ class Contact extends Component {
   }
 
   componentWillMount () {
-  this.props.fetchProfileById(this.props.senderId)
+    this.props.fetchProfileById(this.props.senderId)
   }
 
   handleChange (e) {
@@ -75,7 +74,7 @@ class Contact extends Component {
             </div>
           </div>
         </div>
-          <ErrorMessage reducer='auth' />
+        <ErrorMessage reducer='auth' />
       </div>
     )
   }
