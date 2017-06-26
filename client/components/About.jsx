@@ -1,5 +1,40 @@
 import React from 'react'
 
+const profiles = [
+  {
+    name : 'Sam Houlahan',
+    shortName : 'Sam H',
+    avatar : 'https://avatars2.githubusercontent.com/u/24367156?v=3&s=400',
+    github : 'Sam-Houlahan',
+  },
+  {
+    name : 'Julie Crutchley',
+    shortName : 'Julie',
+    avatar : 'https://avatars3.githubusercontent.com/u/26125769?v=3&s=400',
+    github : 'juliecrutchley',
+  },
+  {
+    name : 'Sam Manongga',
+    shortName : 'Sam M',
+    avatar : 'https://avatars3.githubusercontent.com/u/9649569?v=3&s=400',
+    github : 'smanongga',
+    linkedIn : 'smanongga',
+  },
+  {
+    name : 'Rory Macdonald',
+    shortName : 'Rory',
+    avatar : 'https://avatars0.githubusercontent.com/u/24968416?v=3&s=400',
+    github : 'rory-macdonald',
+  },
+  {
+    name : 'Robert Fisher',
+    shortName : 'Rob',
+    avatar : 'https://avatars1.githubusercontent.com/u/5499398?v=3&s=400',
+    github : 'rob-dev-builder',
+    linkedIn : 'robert-fisher-b1b68314',
+  },
+]
+
 class About extends React.Component {
   render() {
     return (
@@ -14,56 +49,28 @@ class About extends React.Component {
             </div>
           </div>
           <div className='row'>
-            <div className='col-md-4'>
-              <div className='dev-profile'>
-                <h2>Sam Houlahan</h2>
-                <img className='dev-profile-image' src='https://avatars2.githubusercontent.com/u/24367156?v=3&s=400' alt='Picture of Sam H' />
-                <div className='social-media-links'>
-                  <a href='https://github.com/Sam-Houlahan' className='fa fa-github-square fa-2x favi-icon'></a>
-                  <a href='#' className='fa fa-linkedin-square fa-2x favi-icon'></a>
+            {
+              profiles.map(profile =>
+                <div className='col-md-4'>
+                  <div className='dev-profile'>
+                    <h2>{profile.name}</h2>
+                    <img className='dev-profile-image' src={profile.avatar} alt={'Picture of ' + profile.shortName} />
+                    <div className='social-media-links'>
+                      {
+                        profile.github
+                          ? <a href={'https://github.com/' + profile.github} className='fa fa-github-square fa-2x favi-icon'></a>
+                          : null
+                      }
+                      {
+                        profile.linkedIn
+                          ? <a href={'https://www.linkedin.com/in/' + profile.linkedIn + '/'} className='fa fa-linkedin-square fa-2x'></a>
+                          : null
+                      }
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className='col-md-4'>
-              <div className='dev-profile'>
-                <h2>Julie Crutchley</h2>
-                <img className='dev-profile-image' src='https://avatars3.githubusercontent.com/u/26125769?v=3&s=400' alt='Picture of Julie' />
-                <div className='social-media-links'>
-                  <a href='https://github.com/juliecrutchley' className='fa fa-github-square fa-2x'></a>
-                  <a href='#' className='fa fa-linkedin-square fa-2x'></a>
-                </div>
-              </div>
-            </div>
-            <div className='col-md-4'>
-              <div className='dev-profile'>
-                <h2>Sam Manongga</h2>
-                <img className='dev-profile-image' src='https://avatars3.githubusercontent.com/u/9649569?v=3&s=400' alt='Picture of Sam M' />
-                <div className='social-media-links'>
-                  <a href='https://github.com/smanongga' className='fa fa-github-square fa-2x'></a>
-                  <a href='https://www.linkedin.com/in/smanongga/' className='fa fa-linkedin-square fa-2x'></a>
-                </div>
-              </div>
-            </div>
-            <div className='col-md-4'>
-              <div className='dev-profile'>
-                <h2>Rory Macdonald</h2>
-                <img className='dev-profile-image' src='https://avatars0.githubusercontent.com/u/24968416?v=3&s=400' alt='Picture of Rory' />
-                <div className='social-media-links'>
-                  <a href='https://github.com/rory-macdonald' className='fa fa-github-square fa-2x'></a>
-                  <a href='#' className='fa fa-linkedin-square fa-2x'></a>
-                </div>
-              </div>
-            </div>
-            <div className='col-md-4'>
-              <div className='dev-profile'>
-                <h2>Robert Fisher</h2>
-                <img className='dev-profile-image' src='https://avatars1.githubusercontent.com/u/5499398?v=3&s=400' alt='Picture of Rob' />
-                <div className='social-media-links'>
-                  <a href='https://github.com/rob-dev-builder' className='fa fa-github-square fa-2x'></a>
-                  <a href='https://www.linkedin.com/in/robert-fisher-b1b68314/' className='fa fa-linkedin-square fa-2x'></a>
-                </div>
-              </div>
-            </div>
+              )
+            }
           </div>
           <div className='row'>
             <div className='col-md-12'></div>
