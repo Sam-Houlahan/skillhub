@@ -180,6 +180,12 @@ text-decoration: none;
   color: white;
   padding:10px;
 }
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  .profile-thumbnail {
+    width: 40%;
+  }
+}
+
 .profile-thumbnail .photo img{
   width: 100%;
 }

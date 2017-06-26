@@ -24,7 +24,7 @@ class EditProfile extends React.Component {
       profilePic: this.props.profile.profilePic,
       bio: this.props.profile.bio,
       skillsOffered: this.props.profile.teach,
-      skillsWanted: [],
+      skillsWanted: this.props.profile.learn,
       displayUpload: true,
       imageUploading: false,
       location: this.props.location || [],
@@ -56,10 +56,8 @@ class EditProfile extends React.Component {
     this.setState({skillsOffered})
   }
 
-  handleWantedInput (e) {
-    this.setState({
-      skillsWanted: e
-    })
+  handleWantedInput (skillsWanted) {
+    this.setState({skillsWanted})
   }
 
   handleClick (e) {

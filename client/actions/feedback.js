@@ -24,7 +24,6 @@ export function receiveFeedback (feedback) {
 
 export function postFeedback (feedbackData) {
   return dispatch => {
-    // We dispatch sendMessage to kickoff the call to the API
     dispatch(waitingIndicator())
     return request('post', '/feedback', feedbackData)
       .then(() => {
