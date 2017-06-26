@@ -8,15 +8,14 @@ These instructions help you get a copy of the project up and running on your loc
 Pull down the repo:
 ```
 cd skillhub
-npm start
+npm i
+npm run knex migrate:latest
+npm run knex seed:run
+npm run dev
 ```
 
 ## Testing
 To run Unit Tests:
 ```
-npm run tests
+npm run test
 ```
-
-## Deployment
-
-(Deployment notes to be added)
