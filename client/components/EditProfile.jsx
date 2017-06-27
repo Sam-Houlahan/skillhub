@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
 import {Typeahead} from 'react-bootstrap-typeahead'
 
-import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted, deleteSkillsOffered} from '../actions'
+import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted, deleteSkillsOffered, getAllCategories} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 
@@ -12,6 +12,7 @@ class EditProfile extends React.Component {
     this.props.getUsersProfile()
     this.props.getLocations()
     this.props.getSkills()
+    this.props.getAllCategories()
   }
   constructor (props) {
     super(props)
@@ -208,6 +209,9 @@ function mapDispatchToProps (dispatch) {
     },
     deleteSkillsOffered: () => {
       dispatch(deleteSkillsOffered())
+    },
+    getAllCategories: () => {
+      dispatch(getAllCategories())
     }
   }
 }
@@ -218,7 +222,9 @@ function mapStateToProps (state) {
     user: state.auth.user,
     profile: state.profile,
     location: state.location[0],
-    skills: state.skills
+    skills: state.skills,
+    categories: state.categories
+
   }
 }
 
