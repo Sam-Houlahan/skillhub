@@ -29,7 +29,8 @@ class EditProfile extends React.Component {
       displayUpload: true,
       imageUploading: false,
       location: this.props.location || [],
-      skills: this.props.profile.skills || []
+      skills: this.props.profile.skills || [],
+      categories: this.props.categories || []
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -83,10 +84,11 @@ class EditProfile extends React.Component {
   }
 
   render () {
+    this.props.categories.map((x) => console.log(x.name))
     return (
       <div className='edit-profile container'>
         <form onSubmit={this.handleClick} >
-          {this.props.profile && this.props.location &&
+          {this.props.profile && this.props.location && this.props.categories &&
             <div className='edit-profile-form'>
               <h2>Edit Profile</h2>
               <div className='row'>
@@ -155,6 +157,18 @@ class EditProfile extends React.Component {
                         placeholder='Choose your skills'
                         />
                     </div>
+                  </div>
+                </div>
+                <div className='row'><br />
+                  <div className='col-md-3'><p>Categories</p></div>
+                  <div className='col-md-9'>
+                    <p><select name='locationCity' className='form-control' onChange={this.handleChange}>
+                      {this.props.categories.map((data, i) => {
+                        return (
+                          <option value={data.name} key={i}> {data.name}</option>
+                        )
+                      })}
+                    </select></p>
                   </div>
                 </div>
                 <div className='col-md-3'>

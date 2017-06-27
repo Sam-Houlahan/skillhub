@@ -19,7 +19,8 @@ module.exports = {
   insertSkillsToOffer,
   insertSkillsToLearn,
   getFeedback,
-  addFeedback
+  addFeedback,
+  addSkill
 }
 
 const _ = require('lodash')
@@ -274,6 +275,14 @@ function getCategories (connection) {
 function getSkills (connection) {
   return connection('skills')
   .select()
+}
+
+function addSkill (conn, skill, catid) {
+  return conn('skills')
+  .insert({
+    name: skill,
+    category_id: catid
+  })
 }
 
 function getCategoriesAndSkills (connection) {
