@@ -271,12 +271,10 @@ router.get('/profiles/:id', (req, res) => {
   })
 })
 
-
 router.post('/skills', (req, res) => {
-  console.log(req.body)
-  db.addSkill(conn) 
+  db.addSkill(conn, req.body.name, req.body.category_id)
     .then((data) => {
-    res.json({result: data})
-  })
+      res.json({result: data})
+    })
 })
 module.exports = router
