@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
 import {Typeahead} from 'react-bootstrap-typeahead'
 
-import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted, deleteSkillsOffered, getAllCategories} from '../actions'
+import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted, deleteSkillsOffered, getAllCategories, addSkill} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 
@@ -30,7 +30,9 @@ class EditProfile extends React.Component {
       imageUploading: false,
       location: this.props.location || [],
       skills: this.props.profile.skills || [],
-      categories: this.props.categories || []
+      categories: this.props.categories || [],
+      selectedCategory: null,
+      newSkill: null
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
@@ -69,6 +71,7 @@ class EditProfile extends React.Component {
     this.props.addProfileToDb(this.state)
     this.props.updateSkillsOffered(this.state.skillsOffered)
     this.props.updateSkillsWanted(this.state.skillsWanted)
+    this.props.addSkill(this.state.newSkill, Number(this.state.selectedCategory))
   }
 
   handleImageDrop (files) {
@@ -84,7 +87,8 @@ class EditProfile extends React.Component {
   }
 
   render () {
-    this.props.categories.map((x) => console.log(x.name))
+    console.log(this.state.newSkill)
+    console.log(this.state.selectedCategory)
     return (
       <div className='edit-profile container'>
         <form onSubmit={this.handleClick} >
@@ -159,13 +163,19 @@ class EditProfile extends React.Component {
                     </div>
                   </div>
                 </div>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Please enter skill and category if not found above</p></div>
+                    <div className='col-md-9'>
+                      <p><input name='newSkill' className='form-control' onChange={this.handleChange} /></p>
+                    </div>
+                  </div>
                 <div className='row'><br />
                   <div className='col-md-3'><p>Categories</p></div>
                   <div className='col-md-9'>
-                    <p><select name='locationCity' className='form-control' onChange={this.handleChange}>
+                    <p><select name='selectedCategory' className='form-control' onChange={this.handleChange}>
                       {this.props.categories.map((data, i) => {
                         return (
-                          <option value={data.name} key={i}> {data.name}</option>
+                          <option value={data.id} key={i}> {data.name}</option>
                         )
                       })}
                     </select></p>
@@ -226,6 +236,9 @@ function mapDispatchToProps (dispatch) {
     },
     getAllCategories: () => {
       dispatch(getAllCategories())
+    },
+    addSkill: (skill, catid) => {
+      dispatch(addSkill(skill, catid))
     }
   }
 }

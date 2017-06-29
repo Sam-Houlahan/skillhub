@@ -289,3 +289,21 @@ export function mapSenderId (senderId) {
     dispatch(pushedSenderId(senderId))
   }
 }
+
+export function addSkill (skill, catid) {
+  return dispatch => {
+    dispatch(waitingIndicator())
+    return request('post', '/skills', skill, catid)
+   .then((response) => {
+     dispatch(notWaiting())
+     if (!response.ok) {
+       return response.body.message
+     } else {
+       return response.req
+     }
+   })
+   .catch((err) => {
+     return dispatch(error(err.message))
+   })
+  }
+}
