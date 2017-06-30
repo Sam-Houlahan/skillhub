@@ -71,7 +71,9 @@ class EditProfile extends React.Component {
     this.props.addProfileToDb(this.state)
     this.props.updateSkillsOffered(this.state.skillsOffered)
     this.props.updateSkillsWanted(this.state.skillsWanted)
-    this.props.addSkill(this.state.newSkill, Number(this.state.selectedCategory))
+    this.props.addSkill({
+      skill: this.state.newSkill,
+      catid: this.state.selectedCategory})
   }
 
   handleImageDrop (files) {
@@ -161,12 +163,12 @@ class EditProfile extends React.Component {
                     </div>
                   </div>
                 </div>
-                  <div className='row'>
-                    <div className='col-md-3'><p>Please enter skill and category if not found above</p></div>
-                    <div className='col-md-9'>
-                      <p><input name='newSkill' className='form-control' onChange={this.handleChange} /></p>
-                    </div>
+                <div className='row'>
+                  <div className='col-md-3'><p>Please enter skill and category if not found above</p></div>
+                  <div className='col-md-9'>
+                    <p><input name='newSkill' className='form-control' onChange={this.handleChange} /></p>
                   </div>
+                </div>
                 <div className='row'><br />
                   <div className='col-md-3'><p>Categories</p></div>
                   <div className='col-md-9'>
