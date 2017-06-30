@@ -73,7 +73,8 @@ class EditProfile extends React.Component {
     this.props.updateSkillsWanted(this.state.skillsWanted)
     this.props.addSkill({
       skill: this.state.newSkill,
-      catid: this.state.selectedCategory})
+      catid: this.state.selectedCategory
+    })
   }
 
   handleImageDrop (files) {
