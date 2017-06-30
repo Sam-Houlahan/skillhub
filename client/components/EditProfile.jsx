@@ -87,8 +87,6 @@ class EditProfile extends React.Component {
   }
 
   render () {
-    console.log(this.state.newSkill)
-    console.log(this.state.selectedCategory)
     return (
       <div className='edit-profile container'>
         <form onSubmit={this.handleClick} >
@@ -175,7 +173,8 @@ class EditProfile extends React.Component {
                     <p><select name='selectedCategory' className='form-control' onChange={this.handleChange}>
                       {this.props.categories.map((data, i) => {
                         return (
-                          <option value={data.id} key={i}> {data.name}</option>
+                          <option value={data.id
+                          } key={i}> {data.name}</option>
                         )
                       })}
                     </select></p>
