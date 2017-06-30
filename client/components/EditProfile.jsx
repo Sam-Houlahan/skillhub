@@ -31,7 +31,7 @@ class EditProfile extends React.Component {
       location: this.props.location || [],
       skills: this.props.profile.skills || [],
       categories: this.props.categories || [],
-      selectedCategory: null,
+      selectedCategory: 1,
       newSkill: null
     }
     this.handleChange = this.handleChange.bind(this)
@@ -39,6 +39,7 @@ class EditProfile extends React.Component {
     this.handleImageDrop = this.handleImageDrop.bind(this)
     this.handleWantedInput = this.handleWantedInput.bind(this)
     this.handleOfferedInput = this.handleOfferedInput.bind(this)
+    this.handleAddSkill = this.handleAddSkill.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -63,6 +64,13 @@ class EditProfile extends React.Component {
   handleWantedInput (skillsWanted) {
     this.setState({skillsWanted})
   }
+  handleAddSkill (e) {
+    e.preventDefault()
+    this.props.addSkill({
+      skill: this.state.newSkill,
+      catid: this.state.selectedCategory
+    })
+  }
 
   handleClick (e) {
     e.preventDefault()
@@ -71,10 +79,6 @@ class EditProfile extends React.Component {
     this.props.addProfileToDb(this.state)
     this.props.updateSkillsOffered(this.state.skillsOffered)
     this.props.updateSkillsWanted(this.state.skillsWanted)
-    this.props.addSkill({
-      skill: this.state.newSkill,
-      catid: this.state.selectedCategory
-    })
   }
 
   handleImageDrop (files) {
@@ -135,6 +139,7 @@ class EditProfile extends React.Component {
                       </select></p>
                     </div>
                   </div>
+                  
                   <div className='row'>
                     <div className='col-md-3'><p>Skills Offered</p></div>
                     <div className='col-md-9'>
@@ -163,26 +168,29 @@ class EditProfile extends React.Component {
                         />
                     </div>
                   </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-3'><p>Please enter skill and category if not found above</p></div>
-                  <div className='col-md-9'>
-                    <p><input name='newSkill' className='form-control' onChange={this.handleChange} /></p>
-                  </div>
-                </div>
-                <div className='row'><br />
-                  <div className='col-md-3'><p>Categories</p></div>
-                  <div className='col-md-9'>
-                    <p><select name='selectedCategory' className='form-control' onChange={this.handleChange}>
-                      {this.props.categories.map((data, i) => {
-                        return (
-                          <option value={data.id
+                  <h5 className='text-center'>Please enter skill and category if not found above</h5>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Categories</p></div>
+                    <div className='col-md-9'>
+                      <p><select name='selectedCategory' className='form-control' onChange={this.handleChange}>
+                        {this.props.categories.map((data, i) => {
+                          return (
+                            <option value={data.id
                           } key={i}> {data.name}</option>
-                        )
-                      })}
-                    </select></p>
+                          )
+                        })}
+                      </select></p>
+                    </div>
+                  </div>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Skill</p></div>
+                    <div className='col-md-9'>
+                      <p><input name='newSkill' className='form-control' onChange={this.handleChange} /></p>
+                      <div className='col-md-12'><button className='btn btn-primary btn-sml ' onClick={this.handleAddSkill}>Add</button></div>
+                    </div>
                   </div>
                 </div>
+
                 <div className='col-md-3'>
                   {this.state.displayUpload && <Dropzone
                     multiple={false}

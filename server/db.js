@@ -278,6 +278,7 @@ function getSkills (connection) {
 }
 
 function addSkill (conn, skill, catid) {
+  skill = _.startCase(skill)
   return conn('skills')
   .insert({
     name: skill,
