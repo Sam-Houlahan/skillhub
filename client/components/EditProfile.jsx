@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Dropzone from 'react-dropzone'
 import {Typeahead} from 'react-bootstrap-typeahead'
 
-import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted, deleteSkillsOffered} from '../actions'
+import {updateProfile, addProfileToDb, getLocations, getSkills, addProfileSkillsOffered, addProfileSkillsWanted, deleteSkillsOffered, getAllCategories, addSkill} from '../actions'
 import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 
@@ -12,6 +12,7 @@ class EditProfile extends React.Component {
     this.props.getUsersProfile()
     this.props.getLocations()
     this.props.getSkills()
+    this.props.getAllCategories()
   }
   constructor (props) {
     super(props)
@@ -28,13 +29,17 @@ class EditProfile extends React.Component {
       displayUpload: true,
       imageUploading: false,
       location: this.props.location || [],
-      skills: this.props.profile.skills || []
+      skills: this.props.profile.skills || [],
+      categories: this.props.categories || [],
+      selectedCategory: 1,
+      newSkill: null
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleImageDrop = this.handleImageDrop.bind(this)
     this.handleWantedInput = this.handleWantedInput.bind(this)
     this.handleOfferedInput = this.handleOfferedInput.bind(this)
+    this.handleAddSkill = this.handleAddSkill.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -58,6 +63,13 @@ class EditProfile extends React.Component {
 
   handleWantedInput (skillsWanted) {
     this.setState({skillsWanted})
+  }
+  handleAddSkill (e) {
+    e.preventDefault()
+    this.props.addSkill({
+      skill: this.state.newSkill,
+      catid: this.state.selectedCategory
+    })
   }
 
   handleClick (e) {
@@ -85,7 +97,7 @@ class EditProfile extends React.Component {
     return (
       <div className='edit-profile container'>
         <form onSubmit={this.handleClick} >
-          {this.props.profile && this.props.location &&
+          {this.props.profile && this.props.location && this.props.categories &&
             <div className='edit-profile-form'>
               <h2>Edit Profile</h2>
               <div className='row'>
@@ -127,6 +139,7 @@ class EditProfile extends React.Component {
                       </select></p>
                     </div>
                   </div>
+                  
                   <div className='row'>
                     <div className='col-md-3'><p>Skills Offered</p></div>
                     <div className='col-md-9'>
@@ -155,7 +168,29 @@ class EditProfile extends React.Component {
                         />
                     </div>
                   </div>
+                  <h5 className='text-center'>Please enter skill and category if not found above</h5>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Categories</p></div>
+                    <div className='col-md-9'>
+                      <p><select name='selectedCategory' className='form-control' onChange={this.handleChange}>
+                        {this.props.categories.map((data, i) => {
+                          return (
+                            <option value={data.id
+                          } key={i}> {data.name}</option>
+                          )
+                        })}
+                      </select></p>
+                    </div>
+                  </div>
+                  <div className='row'>
+                    <div className='col-md-3'><p>Skill</p></div>
+                    <div className='col-md-9'>
+                      <p><input name='newSkill' className='form-control' onChange={this.handleChange} /></p>
+                      <div className='col-md-12'><button className='btn btn-primary btn-sml ' onClick={this.handleAddSkill}>Add</button></div>
+                    </div>
+                  </div>
                 </div>
+
                 <div className='col-md-3'>
                   {this.state.displayUpload && <Dropzone
                     multiple={false}
@@ -208,6 +243,12 @@ function mapDispatchToProps (dispatch) {
     },
     deleteSkillsOffered: () => {
       dispatch(deleteSkillsOffered())
+    },
+    getAllCategories: () => {
+      dispatch(getAllCategories())
+    },
+    addSkill: (skill, catid) => {
+      dispatch(addSkill(skill, catid))
     }
   }
 }
@@ -218,7 +259,9 @@ function mapStateToProps (state) {
     user: state.auth.user,
     profile: state.profile,
     location: state.location[0],
-    skills: state.skills
+    skills: state.skills,
+    categories: state.categories
+
   }
 }
 

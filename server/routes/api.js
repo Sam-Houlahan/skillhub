@@ -271,4 +271,14 @@ router.get('/profiles/:id', (req, res) => {
   })
 })
 
+router.post('/skills', (req, res) => {
+  db.addSkill(conn, req.body.skill, req.body.catid)
+    .then((data) => {
+      res.json({result: data})
+    })
+     .catch((err) => {
+       console.log('/skills', err)
+       res.send(err.message).status(500)
+     })
+})
 module.exports = router
