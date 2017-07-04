@@ -8,12 +8,6 @@ import {getUsersProfile} from '../actions/index'
 import {uploadImage} from '../utils/api'
 
 class EditProfile extends React.Component {
-  componentDidMount () {
-    this.props.getUsersProfile()
-    this.props.getLocations()
-    this.props.getSkills()
-    this.props.getAllCategories()
-  }
   constructor (props) {
     super(props)
     this.state = {
@@ -220,20 +214,15 @@ class EditProfile extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getUsersProfile: (cb) => {
-      dispatch(getUsersProfile(cb))
-    },
+    getUsersProfile: dispatch(getUsersProfile()),
+    getLocations: dispatch(getLocations()),
+    getSkills: dispatch(getSkills()),
+    getAllCategories: dispatch(getAllCategories()),
     addProfileToDb: (profile) => {
       dispatch(addProfileToDb(profile))
     },
     updateProfileInStore: (profile) => {
       dispatch(updateProfile(profile))
-    },
-    getLocations: () => {
-      dispatch(getLocations())
-    },
-    getSkills: () => {
-      dispatch(getSkills())
     },
     updateSkillsOffered: (skills) => {
       dispatch(addProfileSkillsOffered(skills))
@@ -243,9 +232,6 @@ function mapDispatchToProps (dispatch) {
     },
     deleteSkillsOffered: () => {
       dispatch(deleteSkillsOffered())
-    },
-    getAllCategories: () => {
-      dispatch(getAllCategories())
     },
     addSkill: (skill, catid) => {
       dispatch(addSkill(skill, catid))
