@@ -152,7 +152,6 @@ export function addProfileSkillsOffered (skills) {
 }
 
 export function addProfileSkillsWanted (skills) {
-  console.log(skills)
   return dispatch => {
     dispatch(waitingIndicator())
     return request('post', '/profile/skills-learn', skills)
@@ -287,5 +286,23 @@ export function getSkills () {
 export function mapSenderId (senderId) {
   return dispatch => {
     dispatch(pushedSenderId(senderId))
+  }
+}
+
+export function addSkill (skill, catid) {
+  return dispatch => {
+    dispatch(waitingIndicator())
+    return request('post', '/skills', skill, catid)
+   .then((response) => {
+     dispatch(notWaiting())
+     if (!response.ok) {
+       return response.body.message
+     } else {
+       return response.req
+     }
+   })
+   .catch((err) => {
+     return dispatch(error(err.message))
+   })
   }
 }
