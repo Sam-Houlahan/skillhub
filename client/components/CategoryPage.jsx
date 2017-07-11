@@ -108,15 +108,11 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getUsersLearn: (cb) => {
-      dispatch(getCategoryUsersLearn(cb))
+    getUsersLearn: (cb) => {dispatch(getCategoryUsersLearn(cb))
     },
-    getUsersOffer: (cb) => {
-      dispatch(getCategoryUsersOffer(cb))
+    getUsersOffer: (cb) => {dispatch(getCategoryUsersOffer(cb))
     },
-    getLocations: () => {
-      dispatch(getLocations())
-    }
+    getLocations: () => {dispatch(getLocations())}
   }
 }
 
