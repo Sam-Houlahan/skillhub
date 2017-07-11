@@ -62,7 +62,7 @@ class Contact extends Component {
           <div className='col-md-10'>
             <div className='message-form'>
               To: <Link to={`/profiles/${this.props.data.id}`}><span className='feedback-name'>
-                {this.props.data.firstName} {this.props.data.lastName} 
+                {this.props.data.firstName} {this.props.data.lastName}
               </span></Link>
               <input className='form-control' name='subject' placeholder='Subject'
                 onChange={this.handleChange} value={subject} />
